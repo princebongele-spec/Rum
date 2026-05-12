@@ -13,6 +13,7 @@
       --border: #222;
       --text: #fff;
       --text-dim: #888;
+      --accent: #007AFF;
       --safe-bottom: 0px;
     }
     
@@ -123,7 +124,7 @@
     
     h1 { 
       text-align: center; 
-      margin-bottom: 40px; 
+      margin-bottom: 10px; 
       font-size: 36px;
       font-weight: 800;
       letter-spacing: 1px;
@@ -212,6 +213,28 @@
     
     .btn:active { transform: scale(0.98); }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* ===== BOUTON SWITCH PRO ===== */
+    .switch-auth {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+    
+    .switch-auth button {
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px;
+      font-size: 14px;
+    }
+    
+    .switch-auth button:active {
+      opacity: 0.7;
+    }
     
     /* ===== LOADING ===== */
     #loading { 
@@ -272,11 +295,10 @@
 
   <!-- SCREEN LOGIN -->
   <div class="screen" id="screen-login">
-    <h1>RUMCHAT</h1>
+    <h1 id="authTitle">Connexion</h1>
     
-    <p class="info-text">
-      Entre ton email et mot de passe.<br>
-      Pas de compte ? Il sera créé automatiquement.
+    <p class="info-text" id="authInfo">
+      Connecte-toi à ton compte RUMCHAT
     </p>
     
     <div id="errorBox" class="error-msg"></div>
@@ -291,13 +313,18 @@
       <input type="password" class="input" id="password" placeholder="••••••" autocomplete="current-password">
       <button class="toggle-pass" onclick="togglePassword()" type="button">
         <svg id="eyeIcon" viewBox="0 0 24 24">
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8z"/>
+          <path d="M1 12s4-8 11-8 11 8-4 8-11 8-11-8z"/>
           <circle cx="12" cy="12" r="3"/>
         </svg>
       </button>
     </div>
     
-    <button class="btn" id="loginBtn" onclick="login()">Se connecter / S'inscrire</button>
+    <button class="btn" id="loginBtn" onclick="handleAuth()">Se connecter</button>
+    
+    <div class="switch-auth">
+      <span id="switchText">Pas de compte ?</span>
+      <button type="button" onclick="toggleAuthMode()" id="switchBtn">S'inscrire</button>
+    </div>
   </div>
 
   <!-- SCREEN CHATS -->
@@ -310,7 +337,7 @@
   <!-- LOADING -->
   <div id="loading">
     <div class="spinner"></div>
-    <div>Connexion...</div>
+    <div id="loadingText">Connexion...</div>
   </div>
 
   <!-- FIREBASE -->
@@ -329,6 +356,9 @@
 
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
+    
+    // ===== MODE LOGIN / SIGNUP =====
+    let isLoginMode = true;
 
     // ===== SPLASH TIMER =====
     setTimeout(() => {
@@ -344,7 +374,8 @@
       document.getElementById(id).classList.add('active');
     }
 
-    function loading(show) {
+    function loading(show, text = 'Connexion...') {
+      document.getElementById('loadingText').textContent = text;
       document.getElementById('loading').classList.toggle('active', show);
     }
 
@@ -352,27 +383,53 @@
       const box = document.getElementById('errorBox');
       box.textContent = msg;
       box.classList.add('show');
-      setTimeout(() => box.classList.remove('show'), 4000);
+      setTimeout(() => box.classList.remove('show'), 5000);
     }
 
-    // ===== TOGGLE MOT DE PASSE - SVG CORRIGÉ =====
+    // ===== SWITCH LOGIN / SIGNUP =====
+    function toggleAuthMode() {
+      isLoginMode = !isLoginMode;
+      const title = document.getElementById('authTitle');
+      const info = document.getElementById('authInfo');
+      const btn = document.getElementById('loginBtn');
+      const switchText = document.getElementById('switchText');
+      const switchBtn = document.getElementById('switchBtn');
+      
+      if (isLoginMode) {
+        title.textContent = 'Connexion';
+        info.textContent = 'Connecte-toi à ton compte RUMCHAT';
+        btn.textContent = 'Se connecter';
+        switchText.textContent = 'Pas de compte ?';
+        switchBtn.textContent = "S'inscrire";
+      } else {
+        title.textContent = 'Inscription';
+        info.textContent = 'Crée ton compte RUMCHAT gratuitement';
+        btn.textContent = "S'inscrire";
+        switchText.textContent = 'Déjà un compte ?';
+        switchBtn.textContent = 'Se connecter';
+      }
+      
+      document.getElementById('errorBox').classList.remove('show');
+    }
+
+    // ===== TOGGLE MOT DE PASSE - VERSION FINALE =====
     function togglePassword() {
       const input = document.getElementById('password');
       const icon = document.getElementById('eyeIcon');
       
       if (input.type === 'password') {
         input.type = 'text';
-        // Oeil barré - version propre sans arc foireux
-        icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+        // OEIL BARRÉ
+        icon.innerHTML = '<path d="M17.94 17.94A10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
       } else {
         input.type = 'password';
-        // Oeil ouvert
+        // OEIL OUVERT
         icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8-4 8-11 8-11-8z"/><circle cx="12" cy="12" r="3"/>';
       }
     }
 
-    // ===== LOGIN =====
-    async function login() {
+    // ===== AUTH HANDLER =====
+    async function handleAuth() {
       const email = document.getElementById('email').value.trim();
       const pass = document.getElementById('password').value;
       const btn = document.getElementById('loginBtn');
@@ -381,23 +438,34 @@
       if (pass.length < 6) return showError('Mot de passe 6 caractères minimum');
 
       btn.disabled = true;
-      loading(true);
+      loading(true, isLoginMode ? 'Connexion...' : 'Création du compte...');
 
       try {
-        await auth.signInWithEmailAndPassword(email, pass);
+        if (isLoginMode) {
+          await auth.signInWithEmailAndPassword(email, pass);
+        } else {
+          await auth.createUserWithEmailAndPassword(email, pass);
+        }
       } catch (err) {
+        console.error('Erreur Firebase:', err.code);
+        
         if (err.code === 'auth/user-not-found') {
-          try {
-            await auth.createUserWithEmailAndPassword(email, pass);
-          } catch (e) {
-            showError('Erreur création: ' + e.message);
-          }
+          showError('Compte introuvable. Crée un compte d\'abord.');
         } else if (err.code === 'auth/wrong-password') {
           showError('Mot de passe incorrect');
+        } else if (err.code === 'auth/email-already-in-use') {
+          showError('Ce compte existe déjà. Connecte-toi.');
+          toggleAuthMode();
         } else if (err.code === 'auth/invalid-email') {
           showError('Email invalide');
+        } else if (err.code === 'auth/weak-password') {
+          showError('Mot de passe trop faible');
         } else if (err.code === 'auth/invalid-credential') {
           showError('Email ou mot de passe incorrect');
+        } else if (err.code === 'auth/too-many-requests') {
+          showError('Trop de tentatives. Réessaie plus tard');
+        } else if (err.code === 'auth/operation-not-allowed') {
+          showError('Active Email/Password dans Firebase Console');
         } else {
           showError('Erreur: ' + err.message);
         }
@@ -425,7 +493,7 @@
     // ===== ENTER POUR LOGIN =====
     document.addEventListener('keypress', (e) => {
       if (e.key === 'Enter' && document.getElementById('screen-login').classList.contains('active')) {
-        login();
+        handleAuth();
       }
     });
   </script>
