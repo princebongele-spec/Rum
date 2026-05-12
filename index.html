@@ -51,18 +51,18 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-   .splash-logo {
+  .splash-logo {
       width: 110px;
       height: 110px;
       margin-bottom: 24px;
     }
 
-   .splash-logo svg {
+  .splash-logo svg {
       width: 100%;
       height: 100%;
     }
 
-   .splash-logo rect {
+  .splash-logo rect {
       fill: none;
       stroke: #ffffff;
       stroke-width: 3;
@@ -71,7 +71,7 @@
       animation: drawLine 1.2s 0.2s forwards;
     }
 
-   .splash-logo text {
+  .splash-logo text {
       fill: #ffffff;
       font-size: 58px;
       font-weight: 900;
@@ -79,7 +79,7 @@
       animation: fadeIn 0.6s 1s forwards;
     }
 
-   .splash-title {
+  .splash-title {
       font-size: 26px;
       font-weight: 900;
       letter-spacing: 8px;
@@ -88,7 +88,7 @@
       animation: fadeIn 0.8s 1.3s forwards;
     }
 
-   .splash-footer {
+  .splash-footer {
       position: absolute;
       bottom: 28px;
       font-size: 7px;
@@ -101,10 +101,10 @@
       animation: fadeIn 0.8s 1.6s forwards;
     }
 
-   .powered-text { color: #333; }
-   .brand-text { color: #666; }
+  .powered-text { color: #333; }
+  .brand-text { color: #666; }
 
-   .screen {
+  .screen {
       display: none;
       width: 100%;
       max-width: 400px;
@@ -113,7 +113,7 @@
       height: 100vh;
       overflow-y: auto;
     }
-   .screen.active {
+  .screen.active {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -122,12 +122,12 @@
     h1 {
       text-align: center;
       margin-bottom: 10px;
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 800;
       letter-spacing: 1px;
     }
 
-   .info-text {
+  .info-text {
       text-align: center;
       color: var(--text-dim);
       font-size: 13px;
@@ -135,12 +135,12 @@
       line-height: 1.4;
     }
 
-   .input-group {
+  .input-group {
       position: relative;
       margin: 12px 0;
     }
 
-   .input-label {
+  .input-label {
       display: block;
       font-size: 12px;
       color: var(--text-dim);
@@ -148,7 +148,7 @@
       margin-left: 4px;
     }
 
-   .input {
+  .input {
       width: 100%;
       padding: 16px;
       background: var(--bg-secondary);
@@ -159,12 +159,12 @@
       transition: border 0.2s;
     }
 
-   .input:focus {
+  .input:focus {
       outline: none;
       border-color: #fff;
     }
 
-   .toggle-pass {
+  .toggle-pass {
       position: absolute;
       right: 16px;
       top: 34px;
@@ -178,11 +178,11 @@
       transition: opacity 0.2s;
     }
 
-   .toggle-pass:hover {
+  .toggle-pass:hover {
       opacity: 1;
     }
 
-   .toggle-pass svg {
+  .toggle-pass svg {
       width: 18px;
       height: 18px;
       stroke: var(--text-dim);
@@ -190,7 +190,7 @@
       fill: none;
     }
 
-   .btn {
+  .btn {
       width: 100%;
       padding: 16px;
       margin: 20px 0 10px;
@@ -204,17 +204,17 @@
       transition: transform 0.1s, opacity 0.2s;
     }
 
-   .btn:active { transform: scale(0.98); }
-   .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn:active { transform: scale(0.98); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-   .switch-auth {
+  .switch-auth {
       text-align: center;
       margin-top: 16px;
       font-size: 14px;
       color: var(--text-dim);
     }
 
-   .switch-auth button {
+  .switch-auth button {
       background: none;
       border: none;
       color: var(--accent);
@@ -237,7 +237,7 @@
     }
     #loading.active { display: flex; }
 
-   .spinner {
+  .spinner {
       width: 40px;
       height: 40px;
       border: 3px solid var(--border);
@@ -250,7 +250,7 @@
       to { transform: rotate(360deg); }
     }
 
-   .error-msg {
+  .error-msg {
       background: #ff3b30;
       color: #fff;
       padding: 12px;
@@ -260,17 +260,17 @@
       text-align: center;
       display: none;
     }
-   .error-msg.show { display: block; }
+  .error-msg.show { display: block; }
 
     /* ===== PROFIL PHOTO ===== */
-   .avatar-upload {
+  .avatar-upload {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-bottom: 20px;
     }
 
-   .avatar-preview {
+  .avatar-preview {
       width: 100px;
       height: 100px;
       border-radius: 50%;
@@ -283,26 +283,36 @@
       margin-bottom: 12px;
     }
 
-   .avatar-preview img {
+  .avatar-preview img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-   .avatar-preview span {
+  .avatar-preview span {
       font-size: 40px;
       color: var(--text-dim);
     }
 
-   .avatar-upload input {
+  .avatar-upload input {
       display: none;
     }
 
-   .avatar-upload label {
+  .avatar-upload label {
       color: var(--accent);
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
+    }
+
+    /* 2 colonnes pour Nom/Postnom */
+   .input-row {
+      display: flex;
+      gap: 12px;
+    }
+   .input-row.input-group {
+      flex: 1;
+      margin: 0;
     }
   </style>
 </head>
@@ -353,10 +363,10 @@
     </div>
   </div>
 
-  <!-- SCREEN PROFIL - NOUVEAU -->
+  <!-- SCREEN PROFIL -->
   <div class="screen" id="screen-profile">
-    <h1>Crée ton profil</h1>
-    <p class="info-text">Choisis ton pseudo et ta photo. Une seule fois.</p>
+    <h1>Informations personnelles</h1>
+    <p class="info-text">Remplis tes infos. Utilisé pour t'identifier dans l'app.</p>
 
     <div id="profileError" class="error-msg"></div>
 
@@ -368,17 +378,28 @@
       <label for="avatarInput">Choisir une photo</label>
     </div>
 
+    <div class="input-row">
+      <div class="input-group">
+        <label class="input-label">Nom</label>
+        <input type="text" class="input" id="lastname" placeholder="Ex: Bongele" maxlength="30">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Postnom</label>
+        <input type="text" class="input" id="middlename" placeholder="Ex: Prince" maxlength="30">
+      </div>
+    </div>
+
     <div class="input-group">
-      <label class="input-label">Pseudo</label>
-      <input type="text" class="input" id="username" placeholder="Ex: Prince" maxlength="20">
+      <label class="input-label">Prénom</label>
+      <input type="text" class="input" id="firstname" placeholder="Ex: Jean" maxlength="30">
     </div>
 
     <div class="input-group">
       <label class="input-label">Bio - Optionnel</label>
-      <input type="text" class="input" id="bio" placeholder="Ex: Dev Web" maxlength="50">
+      <input type="text" class="input" id="bio" placeholder="Ex: Dev Web" maxlength="80">
     </div>
 
-    <button class="btn" id="saveProfileBtn" onclick="saveProfile()">Commencer</button>
+    <button class="btn" id="saveProfileBtn" onclick="saveProfile()">Continuer</button>
   </div>
 
   <!-- SCREEN CHATS -->
@@ -463,15 +484,18 @@
       document.getElementById('errorBox').classList.remove('show');
     }
 
+    // ===== TOGGLE MOT DE PASSE CORRIGÉ =====
     function togglePassword() {
       const input = document.getElementById('password');
       const icon = document.getElementById('eyeIcon');
 
       if (input.type === 'password') {
         input.type = 'text';
+        // Oeil barré
         icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
       } else {
         input.type = 'password';
+        // Oeil ouvert
         icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8-4 8-11 8-11-8z"/><circle cx="12" cy="12" r="3"/>';
       }
     }
@@ -523,12 +547,14 @@
     }
 
     async function saveProfile() {
-      const username = document.getElementById('username').value.trim();
+      const lastname = document.getElementById('lastname').value.trim();
+      const middlename = document.getElementById('middlename').value.trim();
+      const firstname = document.getElementById('firstname').value.trim();
       const bio = document.getElementById('bio').value.trim();
       const btn = document.getElementById('saveProfileBtn');
 
-      if (!username) return showError('Choisis un pseudo', 'profileError');
-      if (username.length < 3) return showError('Pseudo 3 caractères minimum', 'profileError');
+      if (!lastname ||!firstname) return showError('Nom et prénom obligatoires', 'profileError');
+      if (lastname.length < 2 || firstname.length < 2) return showError('Nom/prénom trop court', 'profileError');
 
       btn.disabled = true;
       loading(true, 'Sauvegarde...');
@@ -544,9 +570,14 @@
           photoURL = await snapshot.ref.getDownloadURL();
         }
 
+        const fullname = `${lastname} ${middlename} ${firstname}`.trim();
+
         // Sauvegarde dans Realtime DB
         await db.ref(`users/${user.uid}`).set({
-          username: username,
+          lastname: lastname,
+          middlename: middlename,
+          firstname: firstname,
+          fullname: fullname,
           bio: bio,
           photoURL: photoURL,
           email: user.email,
@@ -555,7 +586,7 @@
         });
 
         showScreen('screen-chats');
-        document.getElementById('welcome').textContent = `Bienvenue ${username}!`;
+        document.getElementById('welcome').textContent = `Bienvenue ${firstname}!`;
 
       } catch (err) {
         console.error(err);
@@ -580,7 +611,7 @@
         const hasProfile = await checkProfile(user.uid);
         if (hasProfile) {
           const userData = (await db.ref(`users/${user.uid}`).once('value')).val();
-          document.getElementById('welcome').textContent = `Bienvenue ${userData.username}!`;
+          document.getElementById('welcome').textContent = `Bienvenue ${userData.firstname}!`;
           showScreen('screen-chats');
         } else {
           showScreen('screen-profile');
