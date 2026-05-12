@@ -6,7 +6,7 @@
   <title>RUMCHAT</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
+
     :root {
       --bg: #000;
       --bg-secondary: #111;
@@ -14,22 +14,20 @@
       --text: #fff;
       --text-dim: #888;
       --accent: #007AFF;
-      --safe-bottom: 0px;
     }
-    
-    body { 
+
+    body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--bg); 
-      color: var(--text); 
+      background: var(--bg);
+      color: var(--text);
       height: 100vh;
       overflow: hidden;
     }
 
-    /* ===== SPLASH ===== */
     #splash {
       position: fixed;
       inset: 0;
-      background: #000000;
+      background: #000;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -53,18 +51,18 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    .splash-logo {
+   .splash-logo {
       width: 110px;
       height: 110px;
       margin-bottom: 24px;
     }
 
-    .splash-logo svg {
+   .splash-logo svg {
       width: 100%;
       height: 100%;
     }
 
-    .splash-logo rect {
+   .splash-logo rect {
       fill: none;
       stroke: #ffffff;
       stroke-width: 3;
@@ -73,7 +71,7 @@
       animation: drawLine 1.2s 0.2s forwards;
     }
 
-    .splash-logo text {
+   .splash-logo text {
       fill: #ffffff;
       font-size: 58px;
       font-weight: 900;
@@ -81,7 +79,7 @@
       animation: fadeIn 0.6s 1s forwards;
     }
 
-    .splash-title {
+   .splash-title {
       font-size: 26px;
       font-weight: 900;
       letter-spacing: 8px;
@@ -90,9 +88,9 @@
       animation: fadeIn 0.8s 1.3s forwards;
     }
 
-    .splash-footer {
+   .splash-footer {
       position: absolute;
-      bottom: calc(28px + var(--safe-bottom));
+      bottom: 28px;
       font-size: 7px;
       letter-spacing: 3px;
       text-transform: uppercase;
@@ -103,74 +101,70 @@
       animation: fadeIn 0.8s 1.6s forwards;
     }
 
-    .powered-text { color: #333333; }
-    .brand-text { color: #666666; }
+   .powered-text { color: #333; }
+   .brand-text { color: #666; }
 
-    /* ===== SCREENS ===== */
-    .screen { 
-      display: none; 
-      width: 100%; 
-      max-width: 400px; 
+   .screen {
+      display: none;
+      width: 100%;
+      max-width: 400px;
       padding: 30px 20px;
       margin: 0 auto;
       height: 100vh;
       overflow-y: auto;
     }
-    .screen.active { 
+   .screen.active {
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
-    
-    h1 { 
-      text-align: center; 
-      margin-bottom: 10px; 
-      font-size: 36px;
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 32px;
       font-weight: 800;
       letter-spacing: 1px;
     }
-    
-    /* ===== GUIDE USER ===== */
-    .info-text {
+
+   .info-text {
       text-align: center;
       color: var(--text-dim);
       font-size: 13px;
       margin-bottom: 25px;
       line-height: 1.4;
     }
-    
-    /* ===== INPUTS ===== */
-    .input-group {
+
+   .input-group {
       position: relative;
       margin: 12px 0;
     }
-    
-    .input-label {
+
+   .input-label {
       display: block;
       font-size: 12px;
       color: var(--text-dim);
       margin-bottom: 6px;
       margin-left: 4px;
     }
-    
-    .input { 
-      width: 100%; 
-      padding: 16px; 
-      background: var(--bg-secondary); 
-      border: 1px solid var(--border); 
-      color: var(--text); 
+
+   .input {
+      width: 100%;
+      padding: 16px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text);
       border-radius: 12px;
       font-size: 16px;
       transition: border 0.2s;
     }
-    
-    .input:focus {
+
+   .input:focus {
       outline: none;
       border-color: #fff;
     }
-    
-    /* ===== BOUTON ŒIL ===== */
-    .toggle-pass {
+
+   .toggle-pass {
       position: absolute;
       right: 16px;
       top: 34px;
@@ -183,46 +177,44 @@
       opacity: 0.6;
       transition: opacity 0.2s;
     }
-    
-    .toggle-pass:hover {
+
+   .toggle-pass:hover {
       opacity: 1;
     }
-    
-    .toggle-pass svg {
+
+   .toggle-pass svg {
       width: 18px;
       height: 18px;
       stroke: var(--text-dim);
       stroke-width: 1.8;
       fill: none;
     }
-    
-    /* ===== BOUTON ===== */
-    .btn { 
-      width: 100%; 
-      padding: 16px; 
-      margin: 20px 0 10px; 
-      background: #fff; 
-      color: #000; 
-      border: none; 
-      border-radius: 12px; 
+
+   .btn {
+      width: 100%;
+      padding: 16px;
+      margin: 20px 0 10px;
+      background: #fff;
+      color: #000;
+      border: none;
+      border-radius: 12px;
       font-weight: 700;
       font-size: 16px;
       cursor: pointer;
       transition: transform 0.1s, opacity 0.2s;
     }
-    
-    .btn:active { transform: scale(0.98); }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    /* ===== BOUTON SWITCH PRO ===== */
-    .switch-auth {
+   .btn:active { transform: scale(0.98); }
+   .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+   .switch-auth {
       text-align: center;
       margin-top: 16px;
       font-size: 14px;
       color: var(--text-dim);
     }
-    
-    .switch-auth button {
+
+   .switch-auth button {
       background: none;
       border: none;
       color: var(--accent);
@@ -231,16 +223,11 @@
       padding: 4px;
       font-size: 14px;
     }
-    
-    .switch-auth button:active {
-      opacity: 0.7;
-    }
-    
-    /* ===== LOADING ===== */
-    #loading { 
-      position: fixed; 
+
+    #loading {
+      position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.95); 
+      background: rgba(0,0,0,0.95);
       display: none;
       align-items: center;
       justify-content: center;
@@ -249,8 +236,8 @@
       gap: 20px;
     }
     #loading.active { display: flex; }
-    
-    .spinner {
+
+   .spinner {
       width: 40px;
       height: 40px;
       border: 3px solid var(--border);
@@ -258,12 +245,12 @@
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
-    
+
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
-    
-    .error-msg {
+
+   .error-msg {
       background: #ff3b30;
       color: #fff;
       padding: 12px;
@@ -273,7 +260,50 @@
       text-align: center;
       display: none;
     }
-    .error-msg.show { display: block; }
+   .error-msg.show { display: block; }
+
+    /* ===== PROFIL PHOTO ===== */
+   .avatar-upload {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+   .avatar-preview {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+   .avatar-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+   .avatar-preview span {
+      font-size: 40px;
+      color: var(--text-dim);
+    }
+
+   .avatar-upload input {
+      display: none;
+    }
+
+   .avatar-upload label {
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -296,21 +326,17 @@
   <!-- SCREEN LOGIN -->
   <div class="screen" id="screen-login">
     <h1 id="authTitle">Connexion</h1>
-    
-    <p class="info-text" id="authInfo">
-      Connecte-toi à ton compte RUMCHAT
-    </p>
-    
+    <p class="info-text" id="authInfo">Connecte-toi à ton compte RUMCHAT</p>
     <div id="errorBox" class="error-msg"></div>
-    
+
     <div class="input-group">
       <label class="input-label">Email</label>
-      <input type="email" class="input" id="email" placeholder="exemple@gmail.com" autocomplete="email">
+      <input type="email" class="input" id="email" placeholder="exemple@gmail.com">
     </div>
-    
+
     <div class="input-group">
       <label class="input-label">Mot de passe - 6 caractères minimum</label>
-      <input type="password" class="input" id="password" placeholder="••••••" autocomplete="current-password">
+      <input type="password" class="input" id="password" placeholder="••••••">
       <button class="toggle-pass" onclick="togglePassword()" type="button">
         <svg id="eyeIcon" viewBox="0 0 24 24">
           <path d="M1 12s4-8 11-8 11 8-4 8-11 8-11-8z"/>
@@ -318,13 +344,41 @@
         </svg>
       </button>
     </div>
-    
+
     <button class="btn" id="loginBtn" onclick="handleAuth()">Se connecter</button>
-    
+
     <div class="switch-auth">
-      <span id="switchText">Pas de compte ?</span>
+      <span id="switchText">Pas de compte?</span>
       <button type="button" onclick="toggleAuthMode()" id="switchBtn">S'inscrire</button>
     </div>
+  </div>
+
+  <!-- SCREEN PROFIL - NOUVEAU -->
+  <div class="screen" id="screen-profile">
+    <h1>Crée ton profil</h1>
+    <p class="info-text">Choisis ton pseudo et ta photo. Une seule fois.</p>
+
+    <div id="profileError" class="error-msg"></div>
+
+    <div class="avatar-upload">
+      <div class="avatar-preview" id="avatarPreview">
+        <span>?</span>
+      </div>
+      <input type="file" id="avatarInput" accept="image/*" onchange="previewAvatar()">
+      <label for="avatarInput">Choisir une photo</label>
+    </div>
+
+    <div class="input-group">
+      <label class="input-label">Pseudo</label>
+      <input type="text" class="input" id="username" placeholder="Ex: Prince" maxlength="20">
+    </div>
+
+    <div class="input-group">
+      <label class="input-label">Bio - Optionnel</label>
+      <input type="text" class="input" id="bio" placeholder="Ex: Dev Web" maxlength="50">
+    </div>
+
+    <button class="btn" id="saveProfileBtn" onclick="saveProfile()">Commencer</button>
   </div>
 
   <!-- SCREEN CHATS -->
@@ -344,101 +398,94 @@
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
 
   <script>
-    // ===== CONFIG FIREBASE =====
     const firebaseConfig = {
       apiKey: "AIzaSyBEJ6u2NAjn5jjAaXNnPL67hLthjH3XW7w",
       authDomain: "mr-pc-chat.firebaseapp.com",
       databaseURL: "https://mr-pc-chat-default-rtdb.firebaseio.com",
-      projectId: "mr-pc-chat"
+      projectId: "mr-pc-chat",
+      storageBucket: "mr-pc-chat.appspot.com"
     };
 
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
-    
-    // ===== MODE LOGIN / SIGNUP =====
-    let isLoginMode = true;
+    const db = firebase.database();
+    const storage = firebase.storage();
 
-    // ===== SPLASH TIMER =====
+    let isLoginMode = true;
+    let selectedFile = null;
+
     setTimeout(() => {
       document.getElementById('splash').classList.add('hide');
-      setTimeout(() => {
-        document.getElementById('splash').remove();
-      }, 800);
+      setTimeout(() => document.getElementById('splash').remove(), 800);
     }, 2800);
 
-    // ===== NAVIGATION =====
     function showScreen(id) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
     }
 
-    function loading(show, text = 'Connexion...') {
+    function loading(show, text = 'Chargement...') {
       document.getElementById('loadingText').textContent = text;
       document.getElementById('loading').classList.toggle('active', show);
     }
 
-    function showError(msg) {
-      const box = document.getElementById('errorBox');
+    function showError(msg, boxId = 'errorBox') {
+      const box = document.getElementById(boxId);
       box.textContent = msg;
       box.classList.add('show');
       setTimeout(() => box.classList.remove('show'), 5000);
     }
 
-    // ===== SWITCH LOGIN / SIGNUP =====
     function toggleAuthMode() {
-      isLoginMode = !isLoginMode;
+      isLoginMode =!isLoginMode;
       const title = document.getElementById('authTitle');
       const info = document.getElementById('authInfo');
       const btn = document.getElementById('loginBtn');
       const switchText = document.getElementById('switchText');
       const switchBtn = document.getElementById('switchBtn');
-      
+
       if (isLoginMode) {
         title.textContent = 'Connexion';
         info.textContent = 'Connecte-toi à ton compte RUMCHAT';
         btn.textContent = 'Se connecter';
-        switchText.textContent = 'Pas de compte ?';
+        switchText.textContent = 'Pas de compte?';
         switchBtn.textContent = "S'inscrire";
       } else {
         title.textContent = 'Inscription';
         info.textContent = 'Crée ton compte RUMCHAT gratuitement';
         btn.textContent = "S'inscrire";
-        switchText.textContent = 'Déjà un compte ?';
+        switchText.textContent = 'Déjà un compte?';
         switchBtn.textContent = 'Se connecter';
       }
-      
       document.getElementById('errorBox').classList.remove('show');
     }
 
-    // ===== TOGGLE MOT DE PASSE - VERSION FINALE =====
     function togglePassword() {
       const input = document.getElementById('password');
       const icon = document.getElementById('eyeIcon');
-      
+
       if (input.type === 'password') {
         input.type = 'text';
-        // OEIL BARRÉ
-        icon.innerHTML = '<path d="M17.94 17.94A10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+        icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
       } else {
         input.type = 'password';
-        // OEIL OUVERT
         icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8-4 8-11 8-11-8z"/><circle cx="12" cy="12" r="3"/>';
       }
     }
 
-    // ===== AUTH HANDLER =====
     async function handleAuth() {
       const email = document.getElementById('email').value.trim();
       const pass = document.getElementById('password').value;
       const btn = document.getElementById('loginBtn');
 
-      if (!email || !pass) return showError('Remplis email + mot de passe');
+      if (!email ||!pass) return showError('Remplis email + mot de passe');
       if (pass.length < 6) return showError('Mot de passe 6 caractères minimum');
 
       btn.disabled = true;
-      loading(true, isLoginMode ? 'Connexion...' : 'Création du compte...');
+      loading(true, isLoginMode? 'Connexion...' : 'Création du compte...');
 
       try {
         if (isLoginMode) {
@@ -448,52 +495,105 @@
         }
       } catch (err) {
         console.error('Erreur Firebase:', err.code);
-        
-        if (err.code === 'auth/user-not-found') {
-          showError('Compte introuvable. Crée un compte d\'abord.');
-        } else if (err.code === 'auth/wrong-password') {
-          showError('Mot de passe incorrect');
-        } else if (err.code === 'auth/email-already-in-use') {
-          showError('Ce compte existe déjà. Connecte-toi.');
+        if (err.code === 'auth/user-not-found') showError('Compte introuvable.');
+        else if (err.code === 'auth/wrong-password') showError('Mot de passe incorrect');
+        else if (err.code === 'auth/email-already-in-use') {
+          showError('Ce compte existe déjà.');
           toggleAuthMode();
-        } else if (err.code === 'auth/invalid-email') {
-          showError('Email invalide');
-        } else if (err.code === 'auth/weak-password') {
-          showError('Mot de passe trop faible');
-        } else if (err.code === 'auth/invalid-credential') {
-          showError('Email ou mot de passe incorrect');
-        } else if (err.code === 'auth/too-many-requests') {
-          showError('Trop de tentatives. Réessaie plus tard');
-        } else if (err.code === 'auth/operation-not-allowed') {
-          showError('Active Email/Password dans Firebase Console');
-        } else {
-          showError('Erreur: ' + err.message);
         }
+        else if (err.code === 'auth/invalid-credential') showError('Email ou mot de passe incorrect');
+        else showError('Erreur: ' + err.message);
       } finally {
         btn.disabled = false;
         loading(false);
       }
     }
 
-    // ===== LOGOUT =====
+    // ===== PROFIL =====
+    function previewAvatar() {
+      const file = document.getElementById('avatarInput').files[0];
+      if (!file) return;
+
+      selectedFile = file;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        document.getElementById('avatarPreview').innerHTML = `<img src="${e.target.result}">`;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function saveProfile() {
+      const username = document.getElementById('username').value.trim();
+      const bio = document.getElementById('bio').value.trim();
+      const btn = document.getElementById('saveProfileBtn');
+
+      if (!username) return showError('Choisis un pseudo', 'profileError');
+      if (username.length < 3) return showError('Pseudo 3 caractères minimum', 'profileError');
+
+      btn.disabled = true;
+      loading(true, 'Sauvegarde...');
+
+      try {
+        const user = auth.currentUser;
+        let photoURL = '';
+
+        // Upload photo si sélectionnée
+        if (selectedFile) {
+          const storageRef = storage.ref(`avatars/${user.uid}`);
+          const snapshot = await storageRef.put(selectedFile);
+          photoURL = await snapshot.ref.getDownloadURL();
+        }
+
+        // Sauvegarde dans Realtime DB
+        await db.ref(`users/${user.uid}`).set({
+          username: username,
+          bio: bio,
+          photoURL: photoURL,
+          email: user.email,
+          createdAt: Date.now(),
+          online: true
+        });
+
+        showScreen('screen-chats');
+        document.getElementById('welcome').textContent = `Bienvenue ${username}!`;
+
+      } catch (err) {
+        console.error(err);
+        showError('Erreur sauvegarde: ' + err.message, 'profileError');
+      } finally {
+        btn.disabled = false;
+        loading(false);
+      }
+    }
+
+    async function checkProfile(uid) {
+      const snapshot = await db.ref(`users/${uid}`).once('value');
+      return snapshot.exists();
+    }
+
     function logout() {
       auth.signOut();
     }
 
-    // ===== AUTO CHECK AUTH =====
-    auth.onAuthStateChanged(user => {
+    auth.onAuthStateChanged(async (user) => {
       if (user) {
-        document.getElementById('welcome').textContent = 'Connecté : ' + user.email;
-        showScreen('screen-chats');
+        const hasProfile = await checkProfile(user.uid);
+        if (hasProfile) {
+          const userData = (await db.ref(`users/${user.uid}`).once('value')).val();
+          document.getElementById('welcome').textContent = `Bienvenue ${userData.username}!`;
+          showScreen('screen-chats');
+        } else {
+          showScreen('screen-profile');
+        }
       } else {
         showScreen('screen-login');
       }
     });
 
-    // ===== ENTER POUR LOGIN =====
     document.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter' && document.getElementById('screen-login').classList.contains('active')) {
-        handleAuth();
+      if (e.key === 'Enter') {
+        if (document.getElementById('screen-login').classList.contains('active')) handleAuth();
+        if (document.getElementById('screen-profile').classList.contains('active')) saveProfile();
       }
     });
   </script>
