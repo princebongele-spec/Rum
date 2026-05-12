@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RUMCHAT</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --bg: #000;
+      --bg-secondary: #111;
+      --border: #222;
+      --text: #fff;
+      --text-dim: #888;
+      --safe-bottom: 0px;
+    }
+    
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg); 
+      color: var(--text); 
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ===== SPLASH ===== */
+    #splash {
+      position: fixed;
+      inset: 0;
+      background: #000000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.8s, visibility 0.8s;
+    }
+
+    #splash.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    @keyframes drawLine {
+      0% { stroke-dashoffset: 300; }
+      100% { stroke-dashoffset: 0; }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .splash-logo {
+      width: 110px;
+      height: 110px;
+      margin-bottom: 24px;
+    }
+
+    .splash-logo svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .splash-logo rect {
+      fill: none;
+      stroke: #ffffff;
+      stroke-width: 3;
+      stroke-dasharray: 300;
+      stroke-dashoffset: 300;
+      animation: drawLine 1.2s 0.2s forwards;
+    }
+
+    .splash-logo text {
+      fill: #ffffff;
+      font-size: 58px;
+      font-weight: 900;
+      opacity: 0;
+      animation: fadeIn 0.6s 1s forwards;
+    }
+
+    .splash-title {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: 8px;
+      color: #ffffff;
+      opacity: 0;
+      animation: fadeIn 0.8s 1.3s forwards;
+    }
+
+    .splash-footer {
+      position: absolute;
+      bottom: calc(28px + var(--safe-bottom));
+      font-size: 7px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+      display: flex;
+      gap: 4px;
+      opacity: 0;
+      animation: fadeIn 0.8s 1.6s forwards;
+    }
+
+    .powered-text { color: #333333; }
+    .brand-text { color: #666666; }
+
+    /* ===== SCREENS ===== */
+    .screen { 
+      display: none; 
+      width: 100%; 
+      max-width: 400px; 
+      padding: 30px 20px;
+      margin: 0 auto;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .screen.active { 
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    h1 { 
+      text-align: center; 
+      margin-bottom: 40px; 
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+    
+    /* ===== GUIDE USER ===== */
+    .info-text {
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 13px;
+      margin-bottom: 25px;
+      line-height: 1.4;
+    }
+    
+    /* ===== INPUTS ===== */
+    .input-group {
+      position: relative;
+      margin: 12px 0;
+    }
+    
+    .input-label {
+      display: block;
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+      margin-left: 4px;
+    }
+    
+    .input { 
+      width: 100%; 
+      padding: 16px; 
+      background: var(--bg-secondary); 
+      border: 1px solid var(--border); 
+      color: var(--text); 
+      border-radius: 12px;
+      font-size: 16px;
+      transition: border 0.2s;
+    }
+    
+    .input:focus {
+      outline: none;
+      border-color: #fff;
+    }
+    
+    /* ===== BOUTON ŒIL ===== */
+    .toggle-pass {
+      position: absolute;
+      right: 16px;
+      top: 34px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+    
+    .toggle-pass:hover {
+      opacity: 1;
+    }
+    
+    .toggle-pass svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--text-dim);
+      stroke-width: 1.8;
+      fill: none;
+    }
+    
+    /* ===== BOUTON ===== */
+    .btn { 
+      width: 100%; 
+      padding: 16px; 
+      margin: 20px 0 10px; 
+      background: #fff; 
+      color: #000; 
+      border: none; 
+      border-radius: 12px; 
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.1s, opacity 0.2s;
+    }
+    
+    .btn:active { transform: scale(0.98); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    
+    /* ===== LOADING ===== */
+    #loading { 
+      position: fixed; 
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.95); 
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      flex-direction: column;
+      gap: 20px;
+    }
+    #loading.active { display: flex; }
+    
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .error-msg {
+      background: #ff3b30;
+      color: #fff;
+      padding: 12px;
+      border-radius: 8px;
+      margin: 10px 0;
+      font-size: 14px;
+      text-align: center;
+      display: none;
+    }
+    .error-msg.show { display: block; }
+  </style>
+</head>
+<body>
+
+  <!-- SPLASH -->
+  <div id="splash">
+    <div class="splash-logo">
+      <svg viewBox="0 0 120 120">
+        <rect x="10" y="10" width="100" height="100" rx="20"/>
+        <text x="60" y="75" text-anchor="middle">R</text>
+      </svg>
+    </div>
+    <div class="splash-title">RUMCHAT</div>
+    <div class="splash-footer">
+      <span class="powered-text">POWERED BY</span>
+      <span class="brand-text">MR PC SERVICES 808</span>
+    </div>
+  </div>
+
+  <!-- SCREEN LOGIN -->
+  <div class="screen" id="screen-login">
+    <h1>RUMCHAT</h1>
+    
+    <p class="info-text">
+      Entre ton email et mot de passe.<br>
+      Pas de compte ? Il sera créé automatiquement.
+    </p>
+    
+    <div id="errorBox" class="error-msg"></div>
+    
+    <div class="input-group">
+      <label class="input-label">Email</label>
+      <input type="email" class="input" id="email" placeholder="exemple@gmail.com" autocomplete="email">
+    </div>
+    
+    <div class="input-group">
+      <label class="input-label">Mot de passe - 6 caractères minimum</label>
+      <input type="password" class="input" id="password" placeholder="••••••" autocomplete="current-password">
+      <button class="toggle-pass" onclick="togglePassword()" type="button">
+        <svg id="eyeIcon" viewBox="0 0 24 24">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+      </button>
+    </div>
+    
+    <button class="btn" id="loginBtn" onclick="login()">Se connecter / S'inscrire</button>
+  </div>
+
+  <!-- SCREEN CHATS -->
+  <div class="screen" id="screen-chats">
+    <h1>Discussions</h1>
+    <p id="welcome" style="text-align:center;margin:20px 0;color:var(--text-dim)"></p>
+    <button class="btn" onclick="logout()">Déconnexion</button>
+  </div>
+
+  <!-- LOADING -->
+  <div id="loading">
+    <div class="spinner"></div>
+    <div>Connexion...</div>
+  </div>
+
+  <!-- FIREBASE -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
+  <script>
+    // ===== CONFIG FIREBASE =====
+    const firebaseConfig = {
+      apiKey: "AIzaSyBEJ6u2NAjn5jjAaXNnPL67hLthjH3XW7w",
+      authDomain: "mr-pc-chat.firebaseapp.com",
+      databaseURL: "https://mr-pc-chat-default-rtdb.firebaseio.com",
+      projectId: "mr-pc-chat"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // ===== SPLASH TIMER =====
+    setTimeout(() => {
+      document.getElementById('splash').classList.add('hide');
+      setTimeout(() => {
+        document.getElementById('splash').remove();
+      }, 800);
+    }, 2800);
+
+    // ===== NAVIGATION =====
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function loading(show) {
+      document.getElementById('loading').classList.toggle('active', show);
+    }
+
+    function showError(msg) {
+      const box = document.getElementById('errorBox');
+      box.textContent = msg;
+      box.classList.add('show');
+      setTimeout(() => box.classList.remove('show'), 4000);
+    }
+
+    // ===== TOGGLE MOT DE PASSE - SVG CORRIGÉ =====
+    function togglePassword() {
+      const input = document.getElementById('password');
+      const icon = document.getElementById('eyeIcon');
+      
+      if (input.type === 'password') {
+        input.type = 'text';
+        // Oeil barré - version propre sans arc foireux
+        icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+      } else {
+        input.type = 'password';
+        // Oeil ouvert
+        icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8-4 8-11 8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+      }
+    }
+
+    // ===== LOGIN =====
+    async function login() {
+      const email = document.getElementById('email').value.trim();
+      const pass = document.getElementById('password').value;
+      const btn = document.getElementById('loginBtn');
+
+      if (!email || !pass) return showError('Remplis email + mot de passe');
+      if (pass.length < 6) return showError('Mot de passe 6 caractères minimum');
+
+      btn.disabled = true;
+      loading(true);
+
+      try {
+        await auth.signInWithEmailAndPassword(email, pass);
+      } catch (err) {
+        if (err.code === 'auth/user-not-found') {
+          try {
+            await auth.createUserWithEmailAndPassword(email, pass);
+          } catch (e) {
+            showError('Erreur création: ' + e.message);
+          }
+        } else if (err.code === 'auth/wrong-password') {
+          showError('Mot de passe incorrect');
+        } else if (err.code === 'auth/invalid-email') {
+          showError('Email invalide');
+        } else if (err.code === 'auth/invalid-credential') {
+          showError('Email ou mot de passe incorrect');
+        } else {
+          showError('Erreur: ' + err.message);
+        }
+      } finally {
+        btn.disabled = false;
+        loading(false);
+      }
+    }
+
+    // ===== LOGOUT =====
+    function logout() {
+      auth.signOut();
+    }
+
+    // ===== AUTO CHECK AUTH =====
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        document.getElementById('welcome').textContent = 'Connecté : ' + user.email;
+        showScreen('screen-chats');
+      } else {
+        showScreen('screen-login');
+      }
+    });
+
+    // ===== ENTER POUR LOGIN =====
+    document.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && document.getElementById('screen-login').classList.contains('active')) {
+        login();
+      }
+    });
+  </script>
+</body>
+</html>
